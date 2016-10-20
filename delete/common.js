@@ -1,0 +1,2 @@
+
+exports.nCategory = 2;

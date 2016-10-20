@@ -1,0 +1,5 @@
+
+
+
+# delete 폴더 삭제. 
+# build 가지고 deploy 만들기. 
