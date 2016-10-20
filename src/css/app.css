@@ -1,0 +1,40 @@
+body, p, h1, h2, h3, h4, h5, h6, menu, ul, ol, li, dl, dt, dd, table, th, td, form, fieldset, legend, input, textarea, button, select {
+  margin: 0;
+  padding: 0; 
+}
+
+.plotTitle {
+	margin-top: 20px;
+	margin-left: 20px;
+}
+
+.plotTable {
+	margin-top: 20px;
+	margin-left: 20px;
+}
+
+.plotTable td {
+	width: 150px;
+	height: 150px;
+}
+
+.plotTable td .tdTitle {
+	width: 100%;
+	height: 20%;
+	display:block;
+	font-size:20px;
+}
+
+.plotTable td .tdContent {
+	width: 100%;
+	height: 80%;
+	display:block;
+	font-size:20px;
+	text-align:center;
+	padding-top:30px;
+}
+
+.plotbutton {
+	width: 100px;
+	height: 50px;
+}
