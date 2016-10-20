@@ -1,5 +1,16 @@
 
+# ch03
 
+- server.js es6 로 바꾸기.
+- server 에서 index.html 내려주는거까지 만들기.
+- static으로 dice, randomList 페이지 로딩하기 -> js 로 라우팅하는거 붙이기.
+
+- server 에서 mongodb 붙이는 부분까지 ch 들 es6 로 변환.
+- client 디자인 만들어서 각 파트 모듈화해서 페이지 생성하기.
 
 # delete 폴더 삭제. 
-# build 가지고 deploy 만들기. 
+# build 가지고 deploy 만들기.
+
+
+
+(다 된 목록)

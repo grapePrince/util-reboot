@@ -1,10 +1,11 @@
-var express = require('express');
+import express from 'express';
+import handlebars from "express3-handlebars";
 
-var app = express();
+let app = express();
+
 
 // set up handlebars view engine
-var handlebars = require('express3-handlebars')
-	.create({ defaultLayout:'main' });
+handlebars.create({ defaultLayout:'main' });
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
