@@ -1,16 +1,12 @@
 import express from 'express';
 import handlebars from "express3-handlebars";
 
+// server configuration
 let app = express();
-
-
-// set up handlebars view engine
-handlebars.create({ defaultLayout:'main' });
+handlebars.create({ defaultLayout:'index' });
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
-
-app.set('port', process.env.PORT || 3000);
-
+app.set('port', process.env.PORT || 3101);
 app.use(express.static(__dirname + '/public'));
 
 var fortuneCookies = [
