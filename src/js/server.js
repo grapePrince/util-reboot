@@ -3,8 +3,7 @@ import handlebars from "express3-handlebars";
 
 // server configuration
 let app = express();
-handlebars.create({ defaultLayout:'index' });
-app.engine('handlebars', handlebars.engine);
+app.engine('handlebars', handlebars({ defaultLayout:'index' }));
 app.set('view engine', 'handlebars');
 app.set('port', process.env.PORT || 3101);
 app.use(express.static(__dirname + '/public'));
