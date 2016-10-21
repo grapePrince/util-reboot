@@ -5,24 +5,61 @@ import fs from 'fs';
 
 // server configuration
 let app = express();
-app.engine('handlebars', handlebars({ defaultLayout:'layout' }));
+app.engine('handlebars', handlebars({ defaultLayout:'pc' }));
 
 __dirname = fs.realpathSync('.');
-app.use(express.static(__dirname));
+console.log(__dirname);
+app.use(express.static(path.join(__dirname, 'build'))); // dev
+// app.use(express.static(__dirname)); // real
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'handlebars');
 app.set('port', process.env.PORT || 3101);
+
 app.get('/', function(req, res) {
 	res.render('index');
 });
 
-/*
-app.get('/about', function(req,res){
-	var randomFortune = 
-		fortuneCookies[Math.floor(Math.random() * fortuneCookies.length)];
-	res.render('about', { fortune: randomFortune });
+app.get('/dice', function(req, res) {
+	let logList = `
+		<tr>
+			<td>2016-05-03 01:05:03</td>
+			<td>사람1</td>
+			<td>안녕하세요?</td>
+		</tr>
+		<tr>
+			<td>2016-05-03 01:05:03</td>
+			<td>사람2</td>
+			<td>네 안녕하세요.</td>
+		</tr>
+		<tr>
+			<td>2016-05-03 01:05:03</td>
+			<td>사람2</td>
+			<td>네 안녕하세요.</td>
+		</tr>
+		<tr>
+			<td>2016-05-03 01:05:03</td>
+			<td>사람2</td>
+			<td>네 안녕하세요.</td>
+		</tr>
+		<tr>   
+			<td>2016-05-03 01:05:03</td>
+			<td>사람2</td>
+			<td>주사위 : 2 / 1d3</td>
+		</tr>
+		<tr>
+			<td>2016-05-03 01:05:03</td>
+			<td>사람2</td>
+			<td>네 안녕하세요.</td>
+		</tr>
+		<tr>
+			<td>2016-05-03 01:05:03</td>
+			<td>사람2</td>
+			<td>네 안녕하세요.</td>
+		</tr>
+		`;
+	res.render('dice', {logList: logList});
 });
-*/
 
 app.use(function(req, res, next){
 	res.status(404);

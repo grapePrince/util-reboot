@@ -6,11 +6,10 @@ module.exports = {
     externals: [nodeExternals()],
     target: 'node', 
     entry: {
-        "client.js" : [
-            'babel-polyfill',
+        "js/client.js" : [
             path.resolve(__dirname, '../js/client.js')
         ],
-        "server.js" : [
+        "js/server.js" : [
             'babel-polyfill',
             path.resolve(__dirname, '../js/server.js')
         ],
@@ -26,7 +25,7 @@ module.exports = {
         loaders: [
         { 
             test: /\.js$/,
-            loader: "babel",
+            loader: "babel-loader",
             query: {
                 presets: 'es2015'
             }
