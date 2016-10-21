@@ -6,16 +6,16 @@ module.exports = {
     externals: [nodeExternals()],
     target: 'node', 
     entry: {
-        "js/client.js" : [
+        "client.js" : [
             'babel-polyfill',
-            path.resolve(__dirname, '../src/js/client.js')
+            path.resolve(__dirname, '../js/client.js')
         ],
-        "js/server.js" : [
+        "server.js" : [
             'babel-polyfill',
-            path.resolve(__dirname, '../src/js/server.js')
+            path.resolve(__dirname, '../js/server.js')
         ],
         "css/app.css" : [
-            path.resolve(__dirname, '../src/css/app.css')
+            path.resolve(__dirname, '../css/app.css')
         ]
     },
     output: {

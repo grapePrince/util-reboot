@@ -1,13 +1,17 @@
 import express from 'express';
 import handlebars from "express3-handlebars";
+import path from "path";
+import fs from 'fs';
 
 // server configuration
 let app = express();
-app.engine('handlebars', handlebars({ defaultLayout:'index' }));
+app.engine('handlebars', handlebars({ defaultLayout:'layout' }));
+
+__dirname = fs.realpathSync('.');
+app.use(express.static(__dirname));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'handlebars');
 app.set('port', process.env.PORT || 3101);
-app.use(express.static(__dirname + '/public'));
-
 app.get('/', function(req, res) {
 	res.render('index');
 });

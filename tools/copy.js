@@ -19,11 +19,12 @@ async function copy({ watch } = {}) {
   const ncp = Promise.promisify(require('ncp'));
 
   await Promise.all([
-    ncp('src/favicon.ico', 'build/favicon.ico'),
-    ncp('src/apple-touch-icon-114x114.png', 'build/apple-touch-icon-114x114.png'),
-    ncp('src/css/lib', 'build/css/lib'),
-    ncp('src/js/lib', 'build/js/lib'),
-    ncp('src/public', 'build/public')
+    ncp('favicon.ico', 'build/favicon.ico'),
+    ncp('apple-touch-icon-114x114.png', 'build/apple-touch-icon-114x114.png'),
+    ncp('css/lib', 'build/css/lib'),
+    ncp('js/lib', 'build/js/lib'),
+    ncp('public', 'build/public'),
+    ncp('views', 'build/views')
   ]);
 
   await fs.writeFile('./build/package.json', JSON.stringify({

@@ -35,7 +35,7 @@
   },
   "scripts": {
     "build": "babel-node tools/run build",
-    "start": "babel-node build/js/server.js",
+    "start": "babel-node js/server.js",
     "deploy": "sh bin/deploy.sh"
   }
 }
