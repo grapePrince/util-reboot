@@ -1,83 +1,66 @@
-<div class="w3-top">
- <ul class="w3-navbar w3-theme-d2 w3-left-align w3-large">
-  <li><a href="#" class="w3-padding-large w3-theme-d4"><i class="fa fa-home"></i>[세션번호] 세션이름</a></li>
-  <li id="top_no_login_desc" class="w3-hide-small w3-right"><h6 class="w3-padding-large">Login 해 주세요.</h6></li>
- </ul>
-</div>
-<br>
-<br>
-<br>
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+	    <div class="navbar-header">
+	      <a href="/" class="navbar-brand">Home</a>
+	    </div>
+  	</div>
+</nav>
 
  <!-- body  -->
-<div class="w3-light-grey" style="width:100%; height:300px; overflow-x: hidden;">
-  <table class="w3-centered" cellspacing="0" cellpadding="0" width="100%">
-	<colgroup>
-		<col width="90px">
-		<col width="100px">
-		<col>
-	</colgroup>
-  <thead>
-      <tr>
-        <th scope="col">시간</th>
-        <th scope="col">보낸 이</th>
-        <th scope="col">내용</th>
-      </tr>
-  </thead>
-	<tbody style="font-size:12px">
-		{{{logList}}}
-	</tbody>
-</table>
+<div id="diceBody_container" class="container">
+  	<table class="table" cellspacing="0" cellpadding="0" width="100%" style="height:300px; overflow-x: hidden;">
+		<colgroup>
+			<col width="90px">
+			<col>
+			<col width="120px">
+		</colgroup>
+		<thead>
+			<tr>
+				<th scope="col">시간</th>
+				<th scope="col">결과</th>
+				<th scope="col">복사</th>
+			</tr>
+		</thead>
+		<tbody style="font-size:12px">
+			{{#each logList}}
+			<tr>
+				<td>{{date}}</td>
+				<td>{{result}}</td>
+				<td><button class="btn btn-default" data-copy="{{data}}: {{result}}">클립보드로 복사</button></td>
+			</tr>
+			{{/each}} 
+		</tbody>
+	</table>
+	<div id="diceRoll_container" class="btn-group">
+		<button type="button" data-dicetype="fixed" data-number="100" class="btn btn-default diceRoll_btn">1d100</button>
+		<button type="button" data-dicetype="fixed" data-number="5" class="btn btn-default diceRoll_btn">1d5</button>
+		<button type="button" data-dicetype="fixed" data-number="4" class="btn btn-default diceRoll_btn">1d4</button>
+		<button type="button" data-dicetype="fixed" data-number="3" class="btn btn-default diceRoll_btn">1d3</button>
+		<button type="button" data-dicetype="fixed" data-number="2" class="btn btn-default diceRoll_btn">1d2</button>
+		<br>
+		<form class="form-inline">
+			<div class="form-group">
+				<span style="padding-right:10px">1d</span> 
+				<input id="dice_input" class="form-control form-inline" style="width:150px" placeholder="입력 안하면 100">
+				<button type="button" data-dicetype="user" class="btn btn-default diceRoll_btn">굴리기</button>
+			</div>
+		</form>
+	</div>
+	<br>
+	<br>
+	<form class="form-inline">
+		<div class="form-group">
+			<span style="padding-right:10px">1~</span> 
+			<input id="random_input" class="form-control form-inline" style="width:150px" placeholder="입력 안하면 100">
+			<button type="button" class="btn btn-default">굴리기</button>
+		</div>
+		<br>
+		<br>
+		<div class="form-group">
+			<input id="random_input" class="form-control form-inline" style="width:150px" placeholder="입력 안하면 1">
+			<span style="padding-left:10px; padding-right:10px">~</span> 
+			<input id="random_input" class="form-control form-inline" style="width:150px" placeholder="입력 안하면 100">
+			<button type="button" class="btn btn-default">굴리기</button>
+		</div>
+	</form>
 </div> 
-<div class="w3-left-align w3-padding-medium">
-  <textarea class="w3-input" placeholder="대화를 입력하세요."></textarea>
-  <button class="w3-btn-block w3-theme-d3">전송</button>
-</div>
-<div class="w3-row w3-padding-medium">
-  <button class="w3-theme-d3 w3-btn">1d100</button>
-  <button class="w3-theme-d3 w3-btn">1d4</button>
-  <button class="w3-theme-d3 w3-btn">1d3</button>
-  <span style="display: inline-block;">
-    <span>1d</span>
-    <input type="text"/>
-    <button class="w3-theme-d3 w3-btn">굴리기</button>
-  </span>
-</div>
-<br>
-<br>
-<br>
-<h5 class="w3-left-align w3-padding-medium">보낸사람이름 설정</h3>
-<ul class="w3-ul w3-padding-medium">
-  <li><input id="text_1" class="w3-radio" type="radio" name="charactername" value="1" checked><label for="text_1">사람1</label><button class="w3-btn w3-theme-d3 w3-right w3-padding-0">X</button></li>
-  <li><input id="text_2" class="w3-radio" type="radio" name="charactername" value="1"><label for="text_2">사람2</label><button class="w3-btn w3-theme-d3 w3-right w3-padding-0">X</button></li>
-  <li><input id="text_3" class="w3-radio" type="radio" name="charactername" value="1"><label for="text_3">사람3</label><button class="w3-btn w3-theme-d3 w3-right w3-padding-0">X</button></li>
-</ul>
-<span class="w3-padding-medium" style="display: inline-block;">
-    <span>보낸사람이름 추가</span>
-    <input type="text"/>
-    <button class="w3-theme-d3 w3-btn">추가</button>
-</span>
-
-<div id="ly_login" class="w3-modal ly_wrapper">
-  <div class="w3-modal-content w3-card-4 w3-center-align" style="width:250px;height:300px;">
-     <h5 class="w3-left-align w3-padding-medium">로그인 하기</h3>
-     <div class="w3-left-align w3-padding-medium"><input type="text" placeholder="아이디" /></div>
-     <div class="w3-left-align w3-padding-medium"> <input type="text" placeholder="비밀번호" /></div>
-     <div  class="w3-left-align w3-padding-medium"> <button class="w3-theme-d3 w3-btn">확인</button> </div>
-     <div class="w3-left-align w3-padding-medium" style="display: inline-block;">
-      <span>이 정보로</span> <button class="w3-theme-d3 w3-btn">가입</button>
-     </div>
-    </div>
-</div>
-
-<div id="ly_login" class="w3-modal ly_wrapper">
-  <div class="w3-modal-content w3-card-4 w3-center-align" style="width:250px;height:300px;">
-     <h5 class="w3-left-align w3-padding-medium">가입 하기</h3>
-     <div class="w3-left-align w3-padding-medium"><input type="text" placeholder="아이디" /></div>
-     <div class="w3-left-align w3-padding-medium"> <input type="text" placeholder="닉네임" /></div>
-     <div class="w3-left-align w3-padding-medium"> <input type="text" placeholder="비밀번호" /></div>
-     <div  class="w3-left-align w3-padding-medium"> <button class="w3-theme-d3 w3-btn">확인</button> </div>
-    </div>
-</div>
-
-
-

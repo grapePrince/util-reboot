@@ -1,11 +1,20 @@
 import express from 'express';
 import handlebars from "express3-handlebars";
+import bodyParser from 'body-parser';
 import path from "path";
+import url from "url";
 import fs from 'fs';
+import mongoose from 'mongoose';
+
+import Util from './modules/Util';
+
+//db configuration
+let dbUrl = "mongodb://localhost/util";
+mongoose.connect(dbUrl);
 
 // server configuration
 let app = express();
-app.engine('handlebars', handlebars({ defaultLayout:'pc' }));
+app.engine('handlebars', handlebars({ defaultLayout:'layout' }));
 
 __dirname = fs.realpathSync('.');
 console.log(__dirname);
@@ -16,50 +25,69 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'handlebars');
 app.set('port', process.env.PORT || 3101);
 
+app.use(bodyParser.urlencoded({ extended: false }));
+ 
+app.use(bodyParser.json());
+
 app.get('/', function(req, res) {
 	res.render('index');
 });
 
 app.get('/dice', function(req, res) {
-	let logList = `
-		<tr>
-			<td>2016-05-03 01:05:03</td>
-			<td>사람1</td>
-			<td>안녕하세요?</td>
-		</tr>
-		<tr>
-			<td>2016-05-03 01:05:03</td>
-			<td>사람2</td>
-			<td>네 안녕하세요.</td>
-		</tr>
-		<tr>
-			<td>2016-05-03 01:05:03</td>
-			<td>사람2</td>
-			<td>네 안녕하세요.</td>
-		</tr>
-		<tr>
-			<td>2016-05-03 01:05:03</td>
-			<td>사람2</td>
-			<td>네 안녕하세요.</td>
-		</tr>
-		<tr>   
-			<td>2016-05-03 01:05:03</td>
-			<td>사람2</td>
-			<td>주사위 : 2 / 1d3</td>
-		</tr>
-		<tr>
-			<td>2016-05-03 01:05:03</td>
-			<td>사람2</td>
-			<td>네 안녕하세요.</td>
-		</tr>
-		<tr>
-			<td>2016-05-03 01:05:03</td>
-			<td>사람2</td>
-			<td>네 안녕하세요.</td>
-		</tr>
-		`;
+	let logList = [
+		{ 
+			date: "2016-05-03 01:05:03",
+		    result: "2 / 1d3" 
+		},
+		{ 
+			date: "2016-05-03 01:05:03",
+		    result: "1 / 1d3" 
+		},
+		{ 
+			date: "2016-05-03 01:05:03",
+		    result: "3 / 1d3" 
+		},
+		{ 
+			date: "2016-05-03 01:05:03",
+		    result: "4 / 1d3" 
+		}
+	];
 	res.render('dice', {logList: logList});
 });
+
+app.get('/api/diceLog', function(req, res) {
+	console.log(req);
+    res.end();
+});
+
+app.post('/api/diceLog', function(req,res){
+	let pathname = Util.getPathName(req);
+	let data = Util.getBodyData(req);
+	let date = data.date;
+	let result = data.result;
+	console.log(pathname);
+	console.log(date);
+	console.log(result);
+
+	let DiceLog = mongoose.model('DiceLog', { 
+		date: String, 
+		result: String 
+	});
+
+	let diceLog = new DiceLog({
+		date: date,
+		result: result
+	});
+
+	diceLog.save((err)=>{
+		if (err) {
+			console.log(err);
+		} else {
+			res.send("OK");
+		}
+	});
+});
+
 
 app.use(function(req, res, next){
 	res.status(404);
