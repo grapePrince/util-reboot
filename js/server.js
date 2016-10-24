@@ -4,13 +4,9 @@ import bodyParser from 'body-parser';
 import path from "path";
 import url from "url";
 import fs from 'fs';
-import mongoose from 'mongoose';
 
 import Util from './modules/Util';
-
-//db configuration
-let dbUrl = "mongodb://localhost/util";
-mongoose.connect(dbUrl);
+import DAO from './modules/DAO';
 
 // server configuration
 let app = express();
@@ -68,26 +64,8 @@ app.post('/api/diceLog', function(req,res){
 	console.log(pathname);
 	console.log(date);
 	console.log(result);
-
-	let DiceLog = mongoose.model('DiceLog', { 
-		date: String, 
-		result: String 
-	});
-
-	let diceLog = new DiceLog({
-		date: date,
-		result: result
-	});
-
-	diceLog.save((err)=>{
-		if (err) {
-			console.log(err);
-		} else {
-			res.send("OK");
-		}
-	});
+    DAO.addDiceLog(date, result);
 });
-
 
 app.use(function(req, res, next){
 	res.status(404);

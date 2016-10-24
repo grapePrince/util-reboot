@@ -3,9 +3,13 @@ import url from "url";
 export default class Util {
 	static getRequest(url, data) {
 		let result;
-		(async function() {
-			result = await promisedRequst("GET", url, data);
-		}());
+		try{
+			(async function() {
+				result = await promisedRequst("GET", url, data);
+			}());
+		} catch(e) {
+			return e;
+		}
 		return result;
 	};
 	
@@ -28,7 +32,6 @@ export default class Util {
 	};
 
 };
-
 
 async function promisedRequst(type, url, data) {
 	return new Promise((resolve, reject) => {
