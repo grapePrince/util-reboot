@@ -4,7 +4,8 @@ export default class DAO {
     async callDAO(_key, ...params) {
         let result;
         const keyFunc = {
-            "addDiceLog": promisedAddDiceLog
+            "addDiceLog": promisedAddDiceLog,
+            "findRecent10DiceLog": promisedFindRecent10DiceLog
         };
         try{
             result = await keyFunc[_key](params);
@@ -27,6 +28,18 @@ async function promisedAddDiceLog([_date="", _result=""] = {}) {
                 reject(err);
             } else {
                 resolve("OK");
+            }
+        });
+    });
+}
+
+async function promisedFindRecent10DiceLog() {
+    return new Promise((resolve, reject) => {
+        Model.DiceLog.find({ date: { $ne: "" } }).limit(10).sort({date: "asc"}).exec(function (err, docs) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(docs);
             }
         });
     });

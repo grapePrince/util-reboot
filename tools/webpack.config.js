@@ -12,7 +12,8 @@ const commonConfig = {
 };
 
 const clientConfig = Object.assign({}, commonConfig, {
-     entry: {
+    target: "web",
+    entry: {
         "js/client.js" : [
             'babel-polyfill',
             path.resolve(__dirname, '../js/client.js')

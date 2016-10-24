@@ -30,36 +30,19 @@ app.get('/', function(req, res) {
 	res.render('index');
 });
 
-app.get('/dice', function(req, res) {
-	let logList = [
-		{ 
-			date: "2016-05-03 01:05:03",
-		    result: "2 / 1d3" 
-		},
-		{ 
-			date: "2016-05-03 01:05:03",
-		    result: "1 / 1d3" 
-		},
-		{ 
-			date: "2016-05-03 01:05:03",
-		    result: "3 / 1d3" 
-		},
-		{ 
-			date: "2016-05-03 01:05:03",
-		    result: "4 / 1d3" 
-		}
-	];
+app.get('/dice', async function(req, res) {
+    let logList = await dao.callDAO("findRecent10DiceLog");
 	res.render('dice', {logList: logList});
 });
 
-app.get('/api/diceLog', function(req, res) {
-	console.log(req);
-    res.end();
+app.get('/api/diceLog', async function(req, res) {
+    let pathname = Util.getPathName(req);  console.log(pathname);
+    let returned = await dao.callDAO("findRecent10DiceLog");
+    Util.response(res, returned);
 });
 
 app.post('/api/diceLog', async function(req,res){
-    console.log(pathname);
-	let pathname = Util.getPathName(req);
+	let pathname = Util.getPathName(req);  console.log(pathname);
 	let data = Util.getBodyData(req);
 	let date = data.date;
 	let result = data.result;

@@ -1,6 +1,7 @@
 import 'babel-polyfill';
 import Util from './modules/Util';
-import Global from './modules/Global';
+import DiceList from './modules/DiceList';
+import RandomArray from './modules/RandomArray';
 
 class Client {
 	constructor() {
@@ -10,6 +11,8 @@ class Client {
 	}
 	initDice() {
 		this.attachEventDice();
+        new RandomArray($("#randomArray_fromone"), "fromone");
+        new RandomArray($("#randomArray_fromnumber"), "fromnumber");
 	}
 	attachEventDice() {
 		$("#diceRoll_container").on("click", "button", (e)=>this.rollDice(e));
@@ -23,11 +26,7 @@ class Client {
         	diceNumber = Number($el.data("number"));
 		} else {
 			diceNumber = $("input", e.currentTarget.parentElement)[0].value;
-			if (diceNumber == "") {
-				diceNumber = 100;
-			} else {
-				diceNumber = Number(diceNumber);
-			}	
+			diceNumber = Util.decodeInputNumber(diceNumber, 100);
 		}
 		
 		if (isNaN(diceNumber)) {
@@ -36,37 +35,27 @@ class Client {
 		}
 
 		let resultNum = Math.floor(Math.random() * diceNumber ) + 1;
-		let resultStr = this.makeDiceResultHtml(resultNum, diceNumber);
+		let resultStr = this.makeDiceResultString(resultNum, diceNumber);
 		let now = new Date();
-		let resultDate = this.makeDateHumanTime(now);
+		let resultDate = this.makeDateHumanTimeString(now);
 		
 		let postUrl = "/api/diceLog";
 		let postData = {
 			date: resultDate,
 			result: resultStr
-		}
+		};
 
-		Util.request("POST", postUrl, postData);
+		let result = Util.request("POST", postUrl, postData);
+		if (result == "OK") {
+			DiceList.refreshList();
+		}
 	}
-	makeDiceResultHtml(result, dimen) {
+	makeDiceResultString(result, dimen) {
 		return `${result} / 1d${dimen}`;
 	}
-	makeDateHumanTime(date) {
+    makeDateHumanTimeString(date) {
 		return `(${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()})`;
 	}
-
-	static randomElementsFromArr(arr, num, duplicate) {
-		let i, results=[], tempArr=arr.slice();
-		for (i=0; i<num ; i++) {
-			let rand = Math.floor(Math.random()*tempArr.length);
-			if (duplicate) {
-				results[i] = tempArr[rand];
-			} else {
-				results[i] = tempArr.splice(rand, 1)[0];
-			}
-		} 
-		return results;
-	};
 }
 
 new Client();

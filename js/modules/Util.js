@@ -1,5 +1,4 @@
 import url from "url";
-
 export default class Util {
 	static request(_type, _url, _data) {
 		let result;
@@ -12,23 +11,44 @@ export default class Util {
 			return e;
 		}
 	};
-
 	static getPathName(req) {
 		let pathname = url.parse(req.url).pathname;
 		pathname = pathname ? pathname.replace(/^\/|\/$/g, "") : "";
 		return pathname;
 	};
-
 	static getBodyData(req) {
 		return req.body;
 	};
 
     static response(_res, _result) {
-        console.log(_result);
         _res.writeHead(200, {"Content-Type": "application/json"});
         var json = JSON.stringify(_result);
         _res.end(json);
     }
+    static decodeInputNumber(_number, _holder) {
+        if (_number == "") {
+            if (_holder) {
+                _number = _holder;
+            } else {
+                _number = NaN;
+            }
+        } else {
+            _number = Number(_number);
+        }
+        return _number;
+    }
+    static randomElementsFromArr(arr, num, duplicate) {
+        let i, results=[], tempArr=arr.slice();
+        for (i=0; i<num ; i++) {
+            let rand = Math.floor(Math.random()*tempArr.length);
+            if (duplicate) {
+                results[i] = tempArr[rand];
+            } else {
+                results[i] = tempArr.splice(rand, 1)[0];
+            }
+        }
+        return results;
+    };
 };
 
 async function promisedRequst(type, url, data) {

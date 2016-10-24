@@ -21,7 +21,7 @@
 				<th scope="col">복사</th>
 			</tr>
 		</thead>
-		<tbody style="font-size:12px">
+		<tbody id="diceLog_list" style="font-size:12px">
 			{{#each logList}}
 			<tr>
 				<td>{{date}}</td>
@@ -48,19 +48,10 @@
 	</div>
 	<br>
 	<br>
-	<form class="form-inline">
-		<div class="form-group">
-			<span style="padding-right:10px">1~</span> 
-			<input id="random_input" class="form-control form-inline" style="width:150px" placeholder="입력 안하면 100">
-			<button type="button" class="btn btn-default">굴리기</button>
-		</div>
+	<form id="randomArray_container" class="form-inline">
+        <div id="randomArray_fromone"></div>
 		<br>
 		<br>
-		<div class="form-group">
-			<input id="random_input" class="form-control form-inline" style="width:150px" placeholder="입력 안하면 1">
-			<span style="padding-left:10px; padding-right:10px">~</span> 
-			<input id="random_input" class="form-control form-inline" style="width:150px" placeholder="입력 안하면 100">
-			<button type="button" class="btn btn-default">굴리기</button>
-		</div>
+        <div id="randomArray_fromnumber"></div>
 	</form>
 </div> 
