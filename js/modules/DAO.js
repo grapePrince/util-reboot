@@ -1,22 +1,20 @@
-import Model from './modules/Model';
+import Model from './Model';
 
 export default class DAO {
-    static callDAO(_key, ...params) {
+    async callDAO(_key, ...params) {
         let result;
         const keyFunc = {
             "addDiceLog": promisedAddDiceLog
         };
         try{
-            (async function() {
-                result = await keyFunc[_key](params);
-            }());
+            result = await keyFunc[_key](params);
+            return result;
         } catch(e) {
             return e;
         }
-        return result;
     }
 }
-async function promisedAddDiceLog(_date, _result) {
+async function promisedAddDiceLog([_date="", _result=""] = {}) {
     console.log(_date);
     console.log(_result);
     return new Promise((resolve, reject) => {
@@ -26,7 +24,7 @@ async function promisedAddDiceLog(_date, _result) {
         });
         diceLog.save((err)=>{
             if (err) {
-                console.log(err);
+                reject(err);
             } else {
                 resolve("OK");
             }

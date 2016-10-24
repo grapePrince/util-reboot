@@ -13,6 +13,4 @@ let Model = {
     DiceLog : DiceLog
 };
 
-console.log(Model);
-
 export default Model;

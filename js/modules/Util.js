@@ -1,24 +1,16 @@
 import url from "url";
 
 export default class Util {
-	static getRequest(url, data) {
+	static request(_type, _url, _data) {
 		let result;
 		try{
 			(async function() {
-				result = await promisedRequst("GET", url, data);
+				result = await promisedRequst(_type, _url, _data);
+                return result;
 			}());
 		} catch(e) {
 			return e;
 		}
-		return result;
-	};
-	
-	static postRequest(url, data) {
-		let result;
-		(async function() {
-			result = await promisedRequst("POST", url, data);
-		}());
-		return result;
 	};
 
 	static getPathName(req) {
@@ -31,6 +23,12 @@ export default class Util {
 		return req.body;
 	};
 
+    static response(_res, _result) {
+        console.log(_result);
+        _res.writeHead(200, {"Content-Type": "application/json"});
+        var json = JSON.stringify(_result);
+        _res.end(json);
+    }
 };
 
 async function promisedRequst(type, url, data) {

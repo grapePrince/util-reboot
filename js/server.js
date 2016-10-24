@@ -7,6 +7,7 @@ import fs from 'fs';
 
 import Util from './modules/Util';
 import DAO from './modules/DAO';
+let dao = new DAO();
 
 // server configuration
 let app = express();
@@ -56,15 +57,14 @@ app.get('/api/diceLog', function(req, res) {
     res.end();
 });
 
-app.post('/api/diceLog', function(req,res){
+app.post('/api/diceLog', async function(req,res){
+    console.log(pathname);
 	let pathname = Util.getPathName(req);
 	let data = Util.getBodyData(req);
 	let date = data.date;
 	let result = data.result;
-	console.log(pathname);
-	console.log(date);
-	console.log(result);
-    DAO.addDiceLog(date, result);
+    let returned = await dao.callDAO("addDiceLog", date, result);
+    Util.response(res, returned);
 });
 
 app.use(function(req, res, next){
