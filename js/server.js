@@ -5,8 +5,8 @@ import path from "path";
 import url from "url";
 import fs from 'fs';
 
-import util from './modules/Util';
-import DAO from './modules/DAO';
+import util from './modules/common/Util';
+import DAO from './modules/common/DAO';
 let dao = new DAO();
 
 // server configuration

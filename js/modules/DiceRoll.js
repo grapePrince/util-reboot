@@ -1,6 +1,6 @@
 import handlebars from "handlebars";
-import util from './Util';
-import DiceList from './DiceList';
+import util from './common/Util';
+import Constants from './common/ConstantsClient';
 
 export default class Randomarray {
     constructor($el, type) {
@@ -39,7 +39,7 @@ export default class Randomarray {
         };
         let result = await util.ajaxRequest("POST", postUrl, postData);
         if (result == "OK") {
-            DiceList.refreshList();
+            Constants.$DiceList.refreshList();
         }
     }
 

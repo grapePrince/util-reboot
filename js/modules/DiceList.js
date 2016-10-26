@@ -1,4 +1,4 @@
-import util from './Util';
+import util from './common/Util';
 import handlebars from "handlebars";
 
 export default class DiceList {

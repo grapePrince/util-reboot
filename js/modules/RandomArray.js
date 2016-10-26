@@ -1,10 +1,11 @@
 import handlebars from "handlebars";
-import util from './Util';
-import DiceList from './DiceList';
+import util from './common/Util';
+import Constants from './common/ConstantsClient';
 
 export default class Randomarray {
     constructor($el, type) {
         this.$el = $el;
+        this.type = type;
         this.template = handlebars.compile(html);
         let data = {};
         if (type == "fromone") {
@@ -22,16 +23,16 @@ export default class Randomarray {
     }
     async randomArray(e) {
         let $btn = $(e.currentTarget);
-        let btnType = $el.data("btntype");
+        let btnType = this.type;
         let fromNum, toNum, resultArr, resultString;
 
         if (btnType == "fromone") {
             fromNum = 1;
         } else {
-            fromNum = this.$el.$(".from_input")[0].value;
+            fromNum = $(".from_input", this.$el)[0].value;
             fromNum = util.decodeInputNumber(fromNum, 1);
         }
-        toNum = this.$el.$(".to_input")[0].value;
+        toNum =$(".to_input",  this.$el)[0].value;
         toNum = util.decodeInputNumber(toNum, 100);
 
         if (isNaN(toNum) || isNaN(fromNum)) {
@@ -43,7 +44,8 @@ export default class Randomarray {
             return;
         }
 
-        resultArr = Array.from(new Array(fromNum - toNum + 1), (x, i) => i);
+        resultArr = [];
+        resultArr = Array.from(new Array(toNum-fromNum+1), (x,i) => i+fromNum);
         resultArr = util.randomElementsFromArr(resultArr, resultArr.length, false);
         resultString = this.makeResultArrString(resultArr);
 
@@ -58,7 +60,7 @@ export default class Randomarray {
 
         let result = await util.ajaxRequest("POST", postUrl, postData);
         if (result == "OK") {
-            DiceList.refreshList();
+            Constants.$DiceList.refreshList();
         }
     }
     makeResultArrString(arr) {
@@ -67,17 +69,20 @@ export default class Randomarray {
             resultString += `${x}, `;
         });
         resultString = resultString.slice(0, resultString.length - 2);
+        resultString += "]";
         return resultString;
     }
 
-
+    makeDateHumanTimeString(date) {
+        return `(${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()})`;
+    }
 }
 
 const html =
     `<div class="form-group">
-        <span style="padding-right:10px; {{#if fromnumber}} {{/if}}">1</span>
-        <input data-type="{{#if fromone}}display:none;{{/if}}" class="form-control form-inline from_input" style="width:150px" placeholder="입력 안하면 100">
+        <span style="padding-right:10px; {{#if fromnumber}}display:none;{{/if}}">1</span>
+        <input class="form-control form-inline from_input" style="width:150px; {{#if fromone}}display:none;{{/if}}" placeholder="입력 안하면 1">
         ~
-        <input class="form-control form-inline to_input" style="width:150px; {{#if fromone}}display:none;{{/if}}" placeholder="입력 안하면 1">
-        <button data-btntype="{{#if fromone}}fromone{{else}}fromnumber{{/if}}" type="button" class="btn btn-default">굴리기</button>
+        <input class="form-control form-inline to_input" style="width:150px;" placeholder="입력 안하면 100">
+        <button type="button" class="btn btn-default">굴리기</button>
     </div>`;
