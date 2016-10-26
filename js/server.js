@@ -5,7 +5,7 @@ import path from "path";
 import url from "url";
 import fs from 'fs';
 
-import Util from './modules/Util';
+import util from './modules/Util';
 import DAO from './modules/DAO';
 let dao = new DAO();
 
@@ -36,18 +36,18 @@ app.get('/dice', async function(req, res) {
 });
 
 app.get('/api/diceLog', async function(req, res) {
-    let pathname = Util.getPathName(req);  console.log(pathname);
+    let pathname = util.getPathName(req);  console.log(pathname);
     let returned = await dao.callDAO("findRecent10DiceLog");
-    Util.response(res, returned);
+	util.ajaxResponse(res, returned);
 });
 
 app.post('/api/diceLog', async function(req,res){
-	let pathname = Util.getPathName(req);  console.log(pathname);
-	let data = Util.getBodyData(req);
+	let pathname = util.getPathName(req);  console.log(pathname);
+	let data = util.getBodyData(req);
 	let date = data.date;
 	let result = data.result;
     let returned = await dao.callDAO("addDiceLog", date, result);
-    Util.response(res, returned);
+	util.ajaxResponse(res, returned);
 });
 
 app.use(function(req, res, next){

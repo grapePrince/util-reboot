@@ -1,31 +1,29 @@
 import url from "url";
-export default class Util {
-	static request(_type, _url, _data) {
+class Util {
+	async ajaxRequest(_type, _url, _data) {
 		let result;
 		try{
-			(async function() {
-				result = await promisedRequst(_type, _url, _data);
-                return result;
-			}());
+            result = await promisedRequst(_type, _url, _data);
+            return result;
 		} catch(e) {
 			return e;
 		}
 	};
-	static getPathName(req) {
+	getPathName(req) {
 		let pathname = url.parse(req.url).pathname;
 		pathname = pathname ? pathname.replace(/^\/|\/$/g, "") : "";
 		return pathname;
 	};
-	static getBodyData(req) {
+	getBodyData(req) {
 		return req.body;
 	};
 
-    static response(_res, _result) {
+    ajaxResponse(_res, _result) {
         _res.writeHead(200, {"Content-Type": "application/json"});
         var json = JSON.stringify(_result);
         _res.end(json);
     }
-    static decodeInputNumber(_number, _holder) {
+    decodeInputNumber(_number, _holder) {
         if (_number == "") {
             if (_holder) {
                 _number = _holder;
@@ -37,7 +35,7 @@ export default class Util {
         }
         return _number;
     }
-    static randomElementsFromArr(arr, num, duplicate) {
+    randomElementsFromArr(arr, num, duplicate) {
         let i, results=[], tempArr=arr.slice();
         for (i=0; i<num ; i++) {
             let rand = Math.floor(Math.random()*tempArr.length);
@@ -50,6 +48,8 @@ export default class Util {
         return results;
     };
 };
+let util = new Util();
+export default util;
 
 async function promisedRequst(type, url, data) {
 	return new Promise((resolve, reject) => {
@@ -62,7 +62,7 @@ async function promisedRequst(type, url, data) {
 		}).done((result) => {
 			resolve(result);
 		}).fail( function (jqXHR, textStatus, errorThrown) {
-			console.log("request failed!");
+			console.log("ajaxRequest failed!");
  	    	console.log(jqXHR);
  	    	resolve({
  	    		jqXHR: jqXHR, 

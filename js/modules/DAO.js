@@ -35,7 +35,7 @@ async function promisedAddDiceLog([_date="", _result=""] = {}) {
 
 async function promisedFindRecent10DiceLog() {
     return new Promise((resolve, reject) => {
-        Model.DiceLog.find({ date: { $ne: "" } }).limit(10).sort({date: "asc"}).exec(function (err, docs) {
+        Model.DiceLog.find({ date: { $ne: "" } }).sort({'_id': "desc"}).limit(5).exec(function (err, docs) {
             if (err) {
                 reject(err);
             } else {

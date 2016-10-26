@@ -1,5 +1,5 @@
 import handlebars from "handlebars";
-import Util from './Util';
+import util from './Util';
 import DiceList from './DiceList';
 
 export default class Randomarray {
@@ -17,10 +17,10 @@ export default class Randomarray {
         $el.html(this.template(data));
         this.attachEvent($el);
     }
-    attachEvent($el) {
-        $el.on("click", "button", (e)=>this.randomArray(e));
+    attachEvent() {
+        this.$el.on("click", "button", (e)=>this.randomArray(e));
     }
-    randomArray(e) {
+    async randomArray(e) {
         let $btn = $(e.currentTarget);
         let btnType = $el.data("btntype");
         let fromNum, toNum, resultArr, resultString;
@@ -29,10 +29,10 @@ export default class Randomarray {
             fromNum = 1;
         } else {
             fromNum = this.$el.$(".from_input")[0].value;
-            fromNum = Util.decodeInputNumber(fromNum, 1);
+            fromNum = util.decodeInputNumber(fromNum, 1);
         }
         toNum = this.$el.$(".to_input")[0].value;
-        toNum = Util.decodeInputNumber(toNum, 100);
+        toNum = util.decodeInputNumber(toNum, 100);
 
         if (isNaN(toNum) || isNaN(fromNum)) {
             alert("아 왜 숫자도 아닌걸 넣어요!? 다시 해요!");
@@ -44,7 +44,7 @@ export default class Randomarray {
         }
 
         resultArr = Array.from(new Array(fromNum - toNum + 1), (x, i) => i);
-        resultArr = Util.randomElementsFromArr(resultArr, resultArr.length, false);
+        resultArr = util.randomElementsFromArr(resultArr, resultArr.length, false);
         resultString = this.makeResultArrString(resultArr);
 
         let now = new Date();
@@ -56,7 +56,7 @@ export default class Randomarray {
             result: resultString
         };
 
-        let result = Util.request("POST", postUrl, postData);
+        let result = await util.ajaxRequest("POST", postUrl, postData);
         if (result == "OK") {
             DiceList.refreshList();
         }

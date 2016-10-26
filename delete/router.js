@@ -13,7 +13,7 @@ function route(oReq, oRes) {
 	if (oHandle[sPath]) {
 		oHandle[sPath](oReq, oRes, oQuery);
 	} else {
-    	console.log("No request handler found for " + sPath);
+    	console.log("No ajaxRequest handler found for " + sPath);
     	oRes.writeHead(404, {"Content-Type": "text/plain"});
     	oRes.write("404 Not found");
     	oRes.end();

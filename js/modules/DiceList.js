@@ -1,14 +1,14 @@
-import Util from './Util';
+import util from './Util';
 import handlebars from "handlebars";
 
 export default class DiceList {
     constructor() {
-        this.$el = $("#diceLog_list");
+        this.$el = $("#diceList_container");
         this.template = handlebars.compile(html);
     }
-    static refreshList() {
+    async refreshList() {
         let getUrl = "/api/diceLog";
-        let logList = Util.request("GET", getUrl);
+        let logList = await util.ajaxRequest("GET", getUrl);
         let data = {logList: logList};
         this.$el.html(this.template(data));
     }

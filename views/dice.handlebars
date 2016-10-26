@@ -21,7 +21,7 @@
 				<th scope="col">복사</th>
 			</tr>
 		</thead>
-		<tbody id="diceLog_list" style="font-size:12px">
+		<tbody id="diceList_container" style="font-size:12px">
 			{{#each logList}}
 			<tr>
 				<td>{{date}}</td>
@@ -32,19 +32,19 @@
 		</tbody>
 	</table>
 	<div id="diceRoll_container" class="btn-group">
-		<button type="button" data-dicetype="fixed" data-number="100" class="btn btn-default diceRoll_btn">1d100</button>
-		<button type="button" data-dicetype="fixed" data-number="5" class="btn btn-default diceRoll_btn">1d5</button>
-		<button type="button" data-dicetype="fixed" data-number="4" class="btn btn-default diceRoll_btn">1d4</button>
-		<button type="button" data-dicetype="fixed" data-number="3" class="btn btn-default diceRoll_btn">1d3</button>
-		<button type="button" data-dicetype="fixed" data-number="2" class="btn btn-default diceRoll_btn">1d2</button>
-		<br>
-		<form class="form-inline">
-			<div class="form-group">
-				<span style="padding-right:10px">1d</span> 
-				<input id="dice_input" class="form-control form-inline" style="width:150px" placeholder="입력 안하면 100">
-				<button type="button" data-dicetype="user" class="btn btn-default diceRoll_btn">굴리기</button>
-			</div>
-		</form>
+        <button type="button" data-dicetype="fixed" data-number="100" class="btn btn-default diceRoll_btn">1d100</button>
+        <button type="button" data-dicetype="fixed" data-number="5" class="btn btn-default diceRoll_btn">1d5</button>
+        <button type="button" data-dicetype="fixed" data-number="4" class="btn btn-default diceRoll_btn">1d4</button>
+        <button type="button" data-dicetype="fixed" data-number="3" class="btn btn-default diceRoll_btn">1d3</button>
+        <button type="button" data-dicetype="fixed" data-number="2" class="btn btn-default diceRoll_btn">1d2</button>
+        <br>
+        <form class="form-inline">
+            <div class="form-group">
+                <span style="padding-right:10px">1d</span>
+                <input id="dice_input" class="form-control form-inline" style="width:150px" placeholder="입력 안하면 100">
+                <button type="button" data-dicetype="user" class="btn btn-default diceRoll_btn">굴리기</button>
+            </div>
+        </form>
 	</div>
 	<br>
 	<br>
