@@ -1,7 +1,6 @@
 
 # ch03
-- mongoose es6 await
-- build 후에 server run
+- 클립보드 복사 아직
 - business 로직 마무리
 
 - node & express 책 보면서 적용하기.
@@ -16,5 +15,6 @@
 - server.js es6 로 바꾸기.
 - server 에서 index.html 내려주는거까지 만들기.
 - static으로 dice, randomList 페이지 로딩하기 -> js 로 라우팅하는거 붙이기.
-
 - client 디자인 만들어서 각 파트 모듈화해서 페이지 생성하기.
+- mongoose es6 await
+- build 후에 server run
