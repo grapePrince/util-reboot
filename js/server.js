@@ -15,8 +15,8 @@ app.engine('handlebars', handlebars({ defaultLayout:'layout' }));
 
 __dirname = fs.realpathSync('.');
 console.log(__dirname);
-app.use(express.static(path.join(__dirname, 'build'))); // dev
-// app.use(express.static(__dirname)); // real
+//app.use(express.static(path.join(__dirname, 'build/util'))); // dev
+app.use(express.static(__dirname)); // real
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'handlebars');
