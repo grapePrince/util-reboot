@@ -15,8 +15,8 @@ import fs from './lib/fs';
  */
 async function clean() {
   await del(['.tmp', 'build/*', '!build/.git'], { dot: true });
-  await fs.makeDir('build/js/lib');
-  await fs.makeDir('build/css/lib');
+  await fs.makeDir('build/util/js/lib');
+  await fs.makeDir('build/util/css/lib');
 }
 
 export default clean;

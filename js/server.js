@@ -35,13 +35,13 @@ app.get('/dice', async function(req, res) {
 	res.render('dice', {logList: logList});
 });
 
-app.get('/api/diceLog', async function(req, res) {
+app.get('/util/api/diceLog', async function(req, res) {
     let pathname = util.getPathName(req);  console.log(pathname);
     let returned = await dao.callDAO("findRecent10DiceLog");
 	util.ajaxResponse(res, returned);
 });
 
-app.post('/api/diceLog', async function(req,res){
+app.post('/util/api/diceLog', async function(req,res){
 	let pathname = util.getPathName(req);  console.log(pathname);
 	let data = util.getBodyData(req);
 	let date = data.date;

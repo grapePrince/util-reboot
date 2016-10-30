@@ -7,7 +7,7 @@ export default class DiceList {
         this.template = handlebars.compile(html);
     }
     async refreshList() {
-        let getUrl = "/api/diceLog";
+        let getUrl = "/util/api/diceLog";
         let logList = await util.ajaxRequest("GET", getUrl);
         let data = {logList: logList};
         this.$el.html(this.template(data));

@@ -3,7 +3,7 @@ var nodeExternals = require('webpack-node-externals');
 
 const commonConfig = {
     output: {
-        path: path.resolve(__dirname, '../build'),
+        path: path.resolve(__dirname, '../build/util'),
         filename: "[name]"
     },
     resolve: {

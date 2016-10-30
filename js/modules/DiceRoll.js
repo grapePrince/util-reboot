@@ -32,7 +32,7 @@ export default class Randomarray {
         let now = new Date();
         let resultDate = this.makeDateHumanTimeString(now);
 
-        let postUrl = "/api/diceLog";
+        let postUrl = "/util/api/diceLog";
         let postData = {
             date: resultDate,
             result: resultStr
