@@ -14,9 +14,9 @@ let app = express();
 app.engine('handlebars', handlebars({ defaultLayout:'layout' }));
 
 __dirname = fs.realpathSync('.');
-console.log(__dirname);
-//app.use(express.static(path.join(__dirname, 'build/util'))); // dev
-app.use(express.static(__dirname)); // real
+console.log(path.join(__dirname, 'build'));
+app.use(express.static(path.join(__dirname, 'build'))); // dev
+// app.use(express.static(__dirname)); // real
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'handlebars');
@@ -31,8 +31,7 @@ app.get('/util', function(req, res) {
 });
 
 app.get('/util/dice', async function(req, res) {
-    let logList = await dao.callDAO("findRecent10DiceLog");
-	res.render('dice', {logList: logList});
+	res.render('dice');
 });
 
 app.get('/util/api/diceLog', async function(req, res) {

@@ -48,7 +48,7 @@
     "babel-node": "babel-node --presets es2015",
     "build": "babel-node tools/run build",
     "watch": "nodemon -w js -w css -w views -w public -w tools --exec npm run babel-node -- tools/run bundle",
-    "start": "nodemon -w build build/js/server.js",
+    "start": "nodemon -w build build/util/js/server.js",
     "deploy": "sh bin/deploy.sh"
   }
 }

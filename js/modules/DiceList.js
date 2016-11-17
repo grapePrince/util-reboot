@@ -5,6 +5,8 @@ export default class DiceList {
     constructor() {
         this.$el = $("#diceList_container");
         this.template = handlebars.compile(html);
+        this.refreshList();
+        new Clipboard('.clipboard');
     }
     async refreshList() {
         let getUrl = "/util/api/diceLog";
@@ -19,6 +21,6 @@ const html =
         <tr>
             <td>{{date}}</td>
             <td>{{result}}</td>
-            <td><button class="btn btn-default" data-copy="{{data}}: {{result}}">클립보드로 복사</button></td>
+            <td><button class="btn btn-default clipboard" data-clipboard-text="{{date}}: {{result}}">클립보드로 복사</button></td>
         </tr>
 	{{/each}} `;
