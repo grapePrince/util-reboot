@@ -32,7 +32,8 @@ async function copy({ watch } = {}) {
     engines: pkg.engines,
     dependencies: pkg.dependencies,
     scripts: {
-      start: 'forever stop 0 && forever start js/server.js',
+      stop: 'forever stop 0',
+      start: 'forever start js/server.js',
     },
   }, null, 2));
 
