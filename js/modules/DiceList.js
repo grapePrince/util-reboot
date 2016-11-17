@@ -5,7 +5,6 @@ export default class DiceList {
     constructor() {
         this.$el = $("#diceList_container");
         this.template = handlebars.compile(html);
-        this.refreshList();
         new Clipboard('.clipboard');
     }
     async refreshList() {

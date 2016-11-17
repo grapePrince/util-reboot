@@ -22,7 +22,14 @@
 			</tr>
 		</thead>
 		<tbody id="diceList_container" style="font-size:12px">
-		</tbody>
+        {{#each logList}}
+            <tr>
+                <td>{{date}}</td>
+                <td>{{result}}</td>
+                <td><button class="btn btn-default" data-copy="{{data}}: {{result}}">클립보드로 복사</button></td>
+            </tr>
+        {{/each}}
+        </tbody>
 	</table>
 	<div id="diceRoll_container" class="btn-group">
         <button type="button" data-dicetype="fixed" data-number="100" class="btn btn-default diceRoll_btn">1d100</button>

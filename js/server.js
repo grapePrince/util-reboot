@@ -31,7 +31,8 @@ app.get('/util', function(req, res) {
 });
 
 app.get('/util/dice', async function(req, res) {
-	res.render('dice');
+	let logList = await dao.callDAO("findRecent10DiceLog");
+	res.render('dice', {logList: logList});
 });
 
 app.get('/util/api/diceLog', async function(req, res) {
