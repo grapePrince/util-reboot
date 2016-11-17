@@ -1,5 +1,7 @@
 var path = require('path');
 var nodeExternals = require('webpack-node-externals');
+var CompressionPlugin = require("compression-webpack-plugin");
+var Webpack = require("webpack");
 
 const commonConfig = {
     output: {
@@ -36,7 +38,21 @@ const clientConfig = Object.assign({}, commonConfig, {
             loader: "style-loader!css-loader"
         }
         ]
-    }
+    },
+    plugins: [
+        new Webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        }),
+        new CompressionPlugin({
+            asset: "[path].gz[query]",
+            algorithm: "gzip",
+            test: /\.js$|\.html|\.css$/,
+            threshold: 10240,
+            minRatio: 0.8
+        })
+    ]
 });
 
 const serverConfig = Object.assign({}, commonConfig, {
