@@ -47,10 +47,11 @@ export default class Randomarray {
         resultArr = [];
         resultArr = Array.from(new Array(toNum-fromNum+1), (x,i) => i+fromNum);
         resultArr = util.randomElementsFromArr(resultArr, resultArr.length, false);
-        resultString = this.makeResultArrString(resultArr);
 
         let now = new Date();
         let resultDate = this.makeDateHumanTimeString(now);
+        let resultId = $("#char_input")[0].value.trim() == "" ? "익명" : $("#char_input")[0].value.trim();
+        resultString = this.makeResultArrString(resultId, resultArr);
 
         let postUrl = "/util/api/diceLog";
         let postData = {
@@ -63,14 +64,14 @@ export default class Randomarray {
             Constants.$DiceList.refreshList();
         }
     }
-    makeResultArrString(arr) {
+    makeResultArrString(resultId, arr) {
         let resultString = "[";
         arr.map((x) => {
             resultString += `${x}, `;
         });
         resultString = resultString.slice(0, resultString.length - 2);
         resultString += "]";
-        return resultString;
+        return `${resultId} - ${resultString}`;
     }
 
     makeDateHumanTimeString(date) {

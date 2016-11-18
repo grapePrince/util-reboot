@@ -8,28 +8,22 @@ export default class Randomarray {
         this.attachEvent();
     }
     attachEvent() {
-        this.$el.on("click", "button", (e)=>this.rollDice(e));
+        this.$el.on("click", "button", (e)=>this.sendMessage(e));
     }
-    async rollDice(e) {
+    async sendMessage(e) {
         let $el = $(e.currentTarget);
-        let diceType = $el.data("dicetype");
-        let diceNumber;
+        let messageResult = $("input", e.currentTarget.parentElement)[0].value.trim();
 
-        if (diceType == "fixed") {
-            diceNumber = Number($el.data("number"));
-        } else {
-            diceNumber = $("input", e.currentTarget.parentElement)[0].value;
-            diceNumber = util.decodeInputNumber(diceNumber, 100);
-        }
-
-        if (isNaN(diceNumber)) {
-            alert("아 왜 숫자도 아닌걸 넣어요!? 다시 해요!");
+        if (messageResult.length < 1) {
             return;
         }
 
-        let resultNum = Math.floor(Math.random() * diceNumber ) + 1;
+        if (messageResult.length > 500) {
+            messageResult = messageResult.slice(0,500);
+        }
+
         let resultId = $("#char_input")[0].value.trim() == "" ? "익명" : $("#char_input")[0].value.trim();
-        let resultStr = this.makeDiceResultString(resultId, resultNum, diceNumber);
+        let resultStr = this.makeMessageString(resultId, messageResult);
         let now = new Date();
         let resultDate = this.makeDateHumanTimeString(now);
 
@@ -44,8 +38,8 @@ export default class Randomarray {
         }
     }
 
-    makeDiceResultString(resultId, result, dimen) {
-        return `${resultId} - ${result} / 1d${dimen}`;
+    makeMessageString(resultId, result) {
+        return `${resultId} - ${result}`;
     }
     makeDateHumanTimeString(date) {
         return `(${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()})`;
