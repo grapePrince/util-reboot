@@ -1,2 +1,0 @@
-
-exports.nCategory = 2;
